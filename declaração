@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Para Tami 💜</title>
+
+<style>
+
+body{
+margin:0;
+background:black;
+color:white;
+font-family:Segoe UI;
+overflow:hidden;
+}
+
+/* FUNDO CINEMATOGRAFICO PRETO */
+
+.bg{
+position:fixed;
+width:100%;
+height:100%;
+background:radial-gradient(circle,#000000 40%,#120022 100%);
+}
+
+/* TITULO */
+
+.titulo{
+
+position:absolute;
+top:30%;
+width:100%;
+text-align:center;
+
+font-size:55px;
+letter-spacing:4px;
+
+opacity:0;
+
+color:#f3e8ff;
+
+text-shadow:
+0 0 10px #c77dff,
+0 0 40px #9d4edd;
+
+animation:fadeTitulo 4s forwards;
+
+}
+
+@keyframes fadeTitulo{
+
+from{
+opacity:0;
+transform:translateY(-40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* TEXTO INTRO */
+
+.intro{
+
+position:absolute;
+top:55%;
+width:60%;
+left:20%;
+
+font-size:22px;
+line-height:1.7;
+
+opacity:0;
+
+animation:introTexto 4s forwards;
+animation-delay:3s;
+
+}
+
+@keyframes introTexto{
+
+to{
+opacity:1;
+}
+
+}
+
+/* TEXTO PRINCIPAL */
+
+.container{
+
+position:absolute;
+top:20%;
+width:70%;
+left:15%;
+
+font-size:22px;
+line-height:1.8;
+
+display:none;
+
+}
+
+/* BRILHO EU TE AMO */
+
+.amor{
+
+color:#e0aaff;
+
+text-shadow:
+0 0 10px #c77dff,
+0 0 30px #9d4edd;
+
+animation:brilho 2s infinite alternate;
+
+}
+
+@keyframes brilho{
+
+from{
+text-shadow:0 0 5px #c77dff;
+}
+
+to{
+text-shadow:0 0 35px #e0aaff;
+}
+
+}
+
+/* CORAÇÕES CAINDO */
+
+.coracao{
+
+position:absolute;
+color:#c77dff;
+font-size:20px;
+
+animation:cair linear infinite;
+
+}
+
+@keyframes cair{
+
+0%{
+transform:translateY(-10vh);
+opacity:1;
+}
+
+100%{
+transform:translateY(110vh);
+opacity:0;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="titulo">Bem-vinda</div>
+
+<div class="intro">
+
+então tami eu sei que voce ta brava comigo mais
+<span class="amor">eu te amo</span>
+do fundo do meu coração 💜
+
+mais enfim queria te conta um pouquinho de como tudo começou kk
+
+</div>
+
+<div class="container">
+<p id="texto"></p>
+</div>
+
+<audio autoplay loop>
+<source src="musica.mp3">
+</audio>
+
+<script>
+
+/* CORAÇÕES */
+
+function criarCoracao(){
+
+let coracao=document.createElement("div");
+
+coracao.classList.add("coracao");
+
+coracao.innerText="💜";
+
+coracao.style.left=Math.random()*100+"vw";
+
+coracao.style.animationDuration=(Math.random()*3+2)+"s";
+
+document.body.appendChild(coracao);
+
+setTimeout(()=>{
+coracao.remove();
+},5000);
+
+}
+
+setInterval(criarCoracao,300);
+
+/* TROCA INTRO → TEXTO PRINCIPAL */
+
+setTimeout(()=>{
+
+document.querySelector(".titulo").style.display="none";
+
+document.querySelector(".intro").style.display="none";
+
+document.querySelector(".container").style.display="block";
+
+},9000);
+
+
+/* TEXTO DIGITANDO */
+
+const texto = `eu lembro que mesmo nas coisas simples você sempre deixava tudo mais especial...
+
+até quando a gente não tinha assunto direito ainda assim ficava em call só pela companhia um do outro.
+
+eu gostava dessas pequenas coisas porque com você até o silêncio era bom.
+
+eu sei que errei em alguns momentos e não tem um dia que eu não pense nisso.
+
+eu realmente quero tentar de novo.
+
+eu não quero que isso acabe assim.
+
+eu quero fazer diferente dessa vez.
+
+eu te amo muito tamires 💜`;
+
+let i=0;
+
+function escrever(){
+
+if(i<texto.length){
+
+if(texto.substring(i,i+9)=="eu te amo"){
+
+document.getElementById("texto").innerHTML+=
+"<span class='amor'>eu te amo</span>";
+
+i+=9;
+
+}else{
+
+document.getElementById("texto").innerHTML+=texto[i];
+
+i++;
+
+}
+
+setTimeout(escrever,40);
+
+}
+
+}
+
+setTimeout(escrever,9000);
+
+</script>
+
+</body>
+</html
