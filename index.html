@@ -12,7 +12,6 @@ background:black;
 color:white;
 font-family:Segoe UI;
 overflow-x:hidden;
-overflow-y:auto;
 scroll-behavior:smooth;
 }
 
@@ -26,7 +25,7 @@ background:radial-gradient(circle,#000000 40%,#140022 100%);
 z-index:-1;
 }
 
-/* titulo bem-vinda */
+/* titulo */
 
 .titulo{
 position:absolute;
@@ -34,7 +33,6 @@ top:30%;
 width:100%;
 text-align:center;
 font-size:60px;
-letter-spacing:4px;
 opacity:0;
 color:#f3e8ff;
 text-shadow:0 0 10px #c77dff,0 0 40px #9d4edd;
@@ -64,17 +62,17 @@ animation-delay:3s;
 to{opacity:1;}
 }
 
-/* container principal */
+/* container texto */
 
 .container{
-position:absolute;
-top:120vh;
+margin-top:120vh;
 width:70%;
-left:15%;
+margin-left:auto;
+margin-right:auto;
 font-size:22px;
 line-height:1.8;
-display:none;
 padding-bottom:300px;
+display:none;
 }
 
 /* brilho */
@@ -93,7 +91,7 @@ to{ text-shadow:0 0 35px #e0aaff;}
 /* corações */
 
 .coracao{
-position:absolute;
+position:fixed;
 color:#c77dff;
 font-size:20px;
 animation:cair linear infinite;
@@ -125,7 +123,7 @@ animation:cair linear infinite;
 
 <script>
 
-/* texto inicial digitando */
+/* TEXTO INTRO */
 
 const introMensagem = `então tami eu sei que voce ta brava comigo mais eu te amo do fundo do meu coração 💜
 
@@ -137,7 +135,7 @@ function escreverIntro(){
 
 if(introIndex < introMensagem.length){
 
-document.getElementById("introTexto").innerHTML += introMensagem[introIndex];
+introTexto.innerHTML += introMensagem[introIndex];
 
 introIndex++;
 
@@ -150,7 +148,7 @@ setTimeout(escreverIntro,40);
 setTimeout(escreverIntro,3500);
 
 
-/* corações caindo */
+/* CORAÇÕES */
 
 function criarCoracao(){
 
@@ -166,14 +164,14 @@ coracao.style.animationDuration=(Math.random()*3+2)+"s";
 
 document.body.appendChild(coracao);
 
-setTimeout(()=>{coracao.remove();},5000);
+setTimeout(()=>coracao.remove(),5000);
 
 }
 
 setInterval(criarCoracao,300);
 
 
-/* troca intro para texto principal */
+/* TROCA PARA TEXTO PRINCIPAL */
 
 setTimeout(()=>{
 
@@ -191,7 +189,7 @@ behavior:"smooth"
 },10000);
 
 
-/* texto principal digitando */
+/* TEXTO PRINCIPAL */
 
 const texto = `eu lembro que mesmo nas coisas simples você sempre deixava tudo mais especial, até quando a gente não tinha assunto direito ainda assim ficava em call só pela companhia um do outro. eu gostava dessas pequenas coisas, porque com você até o silêncio era bom.
 
@@ -221,25 +219,25 @@ function escrever(){
 
 if(i < texto.length){
 
-if(texto.substring(i,i+9) == "eu te amo"){
+if(texto.substring(i,i+9)=="eu te amo"){
 
-document.getElementById("texto").innerHTML +=
+textoHTML.innerHTML +=
 "<span class='amor'>eu te amo</span>";
 
 i+=9;
 
 }else{
 
-document.getElementById("texto").innerHTML += texto[i];
+textoHTML.innerHTML += texto[i];
 
 i++;
 
 }
 
-/* auto scroll acompanhando texto */
+/* AUTO SCROLL SUAVE SINCRONIZADO */
 
-window.scrollTo({
-top:document.body.scrollHeight,
+window.scrollBy({
+top:0.4,
 behavior:"smooth"
 });
 
@@ -248,6 +246,8 @@ setTimeout(escrever,35);
 }
 
 }
+
+const textoHTML=document.getElementById("texto");
 
 setTimeout(escrever,10000);
 
