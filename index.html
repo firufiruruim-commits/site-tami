@@ -11,19 +11,22 @@ margin:0;
 background:black;
 color:white;
 font-family:Segoe UI;
-overflow:hidden;
+overflow-x:hidden;
+overflow-y:auto;
+scroll-behavior:smooth;
 }
 
-/* fundo intro */
+/* fundo */
 
 .bg{
 position:fixed;
 width:100%;
 height:100%;
 background:radial-gradient(circle,#000000 40%,#140022 100%);
+z-index:-1;
 }
 
-/* titulo bem vinda */
+/* titulo bem-vinda */
 
 .titulo{
 position:absolute;
@@ -34,9 +37,7 @@ font-size:60px;
 letter-spacing:4px;
 opacity:0;
 color:#f3e8ff;
-text-shadow:
-0 0 10px #c77dff,
-0 0 40px #9d4edd;
+text-shadow:0 0 10px #c77dff,0 0 40px #9d4edd;
 animation:fadeTitulo 4s forwards;
 }
 
@@ -45,7 +46,7 @@ from{opacity:0; transform:translateY(-40px);}
 to{opacity:1; transform:translateY(0);}
 }
 
-/* intro texto */
+/* intro */
 
 .intro{
 position:absolute;
@@ -67,27 +68,26 @@ to{opacity:1;}
 
 .container{
 position:absolute;
-top:20%;
+top:120vh;
 width:70%;
 left:15%;
 font-size:22px;
 line-height:1.8;
 display:none;
+padding-bottom:300px;
 }
 
 /* brilho */
 
 .amor{
 color:#e0aaff;
-text-shadow:
-0 0 10px #c77dff,
-0 0 30px #9d4edd;
+text-shadow:0 0 10px #c77dff,0 0 30px #9d4edd;
 animation:brilho 2s infinite alternate;
 }
 
 @keyframes brilho{
-from{ text-shadow:0 0 5px #c77dff; }
-to{ text-shadow:0 0 35px #e0aaff; }
+from{ text-shadow:0 0 5px #c77dff;}
+to{ text-shadow:0 0 35px #e0aaff;}
 }
 
 /* corações */
@@ -100,8 +100,8 @@ animation:cair linear infinite;
 }
 
 @keyframes cair{
-0%{ transform:translateY(-10vh); opacity:1; }
-100%{ transform:translateY(110vh); opacity:0; }
+0%{ transform:translateY(-10vh); opacity:1;}
+100%{ transform:translateY(110vh); opacity:0;}
 }
 
 </style>
@@ -113,15 +113,7 @@ animation:cair linear infinite;
 
 <div class="titulo">Bem-vinda</div>
 
-<div class="intro">
-
-então tami eu sei que voce ta brava comigo mais
-<span class="amor">eu te amo</span>
-do fundo do meu coração 💜
-
-mais enfim queria te conta um pouquinho de como tudo começou kk
-
-</div>
+<div class="intro" id="introTexto"></div>
 
 <div class="container">
 <p id="texto"></p>
@@ -133,7 +125,32 @@ mais enfim queria te conta um pouquinho de como tudo começou kk
 
 <script>
 
-/* corações */
+/* texto inicial digitando */
+
+const introMensagem = `então tami eu sei que voce ta brava comigo mais eu te amo do fundo do meu coração 💜
+
+mais enfim queria te conta um pouquinho de como tudo começou kk`;
+
+let introIndex = 0;
+
+function escreverIntro(){
+
+if(introIndex < introMensagem.length){
+
+document.getElementById("introTexto").innerHTML += introMensagem[introIndex];
+
+introIndex++;
+
+setTimeout(escreverIntro,40);
+
+}
+
+}
+
+setTimeout(escreverIntro,3500);
+
+
+/* corações caindo */
 
 function criarCoracao(){
 
@@ -156,7 +173,7 @@ setTimeout(()=>{coracao.remove();},5000);
 setInterval(criarCoracao,300);
 
 
-/* troca intro */
+/* troca intro para texto principal */
 
 setTimeout(()=>{
 
@@ -166,10 +183,15 @@ document.querySelector(".intro").style.display="none";
 
 document.querySelector(".container").style.display="block";
 
-},9000);
+window.scrollTo({
+top:window.innerHeight,
+behavior:"smooth"
+});
+
+},10000);
 
 
-/* texto completo */
+/* texto principal digitando */
 
 const texto = `eu lembro que mesmo nas coisas simples você sempre deixava tudo mais especial, até quando a gente não tinha assunto direito ainda assim ficava em call só pela companhia um do outro. eu gostava dessas pequenas coisas, porque com você até o silêncio era bom.
 
@@ -197,30 +219,37 @@ let i=0;
 
 function escrever(){
 
-if(i<texto.length){
+if(i < texto.length){
 
-if(texto.substring(i,i+9)=="eu te amo"){
+if(texto.substring(i,i+9) == "eu te amo"){
 
-document.getElementById("texto").innerHTML+=
+document.getElementById("texto").innerHTML +=
 "<span class='amor'>eu te amo</span>";
 
 i+=9;
 
 }else{
 
-document.getElementById("texto").innerHTML+=texto[i];
+document.getElementById("texto").innerHTML += texto[i];
 
 i++;
 
 }
 
-setTimeout(escrever,40);
+/* auto scroll acompanhando texto */
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+setTimeout(escrever,35);
 
 }
 
 }
 
-setTimeout(escrever,9000);
+setTimeout(escrever,10000);
 
 </script>
 
